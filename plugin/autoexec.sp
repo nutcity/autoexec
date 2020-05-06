@@ -4,10 +4,10 @@
 
 public Plugin:myinfo = {
 	name = "autoexec",
-	author = "Icewind",
+	author = "Icewind, Enthrow",
 	description = "Automatically execute the right config for a map",
 	version = "0.3",
-	url = "https://spire.tf"
+	url = "nut.city"
 };
 
 new StringMap:mapPrefixMap;
