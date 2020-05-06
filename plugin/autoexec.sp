@@ -28,7 +28,7 @@ public OnPluginStart() {
 	gameModeMap = new StringMap();
 	configOverwriteMap = new StringMap();
 
-	CvarLeague = CreateConVar("sm_autoexec_league", "ugc", "league to execute the configs for (ugc or etf2l)", FCVAR_PROTECTED);
+	CvarLeague = CreateConVar("sm_autoexec_league", "rgl", "league to execute the configs for (rgl or etf2l)", FCVAR_PROTECTED);
 	CvarMode = CreateConVar("sm_autoexec_mode", "9v9", "game mode to execute the config for (9v9, 6v6 or 4v4)", FCVAR_PROTECTED);
 	CvarAutoset = CreateConVar("sm_autoexec_autoset", "true", "try to set league and mode when a config is manually loaded (true or false)", FCVAR_PROTECTED);
 
@@ -36,7 +36,7 @@ public OnPluginStart() {
 	RegServerCmd("sm_getexec", GetExec, "Get the name of the config for a specific map");
 	RegServerCmd("exec", HandleExecAction);
 	
-	mapTypeMap.SetString("5cp", "standard");
+	mapTypeMap.SetString("5cp", "5cp_scrim");
 	
 	mapPrefixMap.SetString("pl_", "stopwatch");
 	mapPrefixMap.SetString("cp_", "5cp");
@@ -53,7 +53,7 @@ public OnPluginStart() {
 	mapOverwriteMap.SetString("cp_alloy", "stopwatch");
 	
 	gameModeMap.SetString("9v9", "hl");
-	gameModeMap.SetString("6v6", "6v");
+	gameModeMap.SetString("6v6", "6s");
 }
 
 public OnMapStart() {
@@ -79,9 +79,9 @@ public Action:HandleExecAction(args) {
 		SetConVarString(CvarLeague, "etf2l");
 	}
 
-	if (StrContains(cfg, "ugc_") == 0) {
-		PrintToChatAll("Setting league to ugc");
-		SetConVarString(CvarLeague, "ugc");
+	if (StrContains(cfg, "rgl_") == 0) {
+		PrintToChatAll("Setting league to rgl");
+		SetConVarString(CvarLeague, "rgl");
 	}
 
 	if ((StrContains(cfg, "9v9_") > 0) || (StrContains(cfg, "hl_") > 0)) {
@@ -94,7 +94,7 @@ public Action:HandleExecAction(args) {
 		SetConVarString(CvarMode, "6v6");
 	}
 
-	if (StrContains(cfg, "6v_") > 0) {
+	if (StrContains(cfg, "6s_") > 0) {
 		PrintToChatAll("Setting game mode to 6v6");
 		SetConVarString(CvarMode, "6v6");
 	}
@@ -169,7 +169,7 @@ public GetGameMode(String:leagueGamemode[8], String:league[8]) {
 	decl String:gamemode[8];
 	GetConVarString(CvarMode, gamemode, sizeof(gamemode));
 	
-	if (strncmp("ugc", league, strlen(league)) == 0) {
+	if (strncmp("rgl", league, strlen(league)) == 0) {
 		if (gameModeMap.GetString(gamemode, leagueGamemode, sizeof(leagueGamemode))) {
 			return;
 		}
@@ -181,7 +181,7 @@ public GetLeagueMapType(String:map[128], String:leagueMapType[128], String:leagu
 	decl String:mapType[128];
 	GetMapType(map, mapType);
 
-	if (strncmp("ugc", league, strlen(league)) == 0) {
+	if (strncmp("rgl", league, strlen(league)) == 0) {
 		if (mapTypeMap.GetString(mapType, leagueMapType, sizeof(leagueMapType))) {
 			return;
 		}
