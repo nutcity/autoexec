@@ -6,6 +6,8 @@ Automatically execute the correct config for a map.
 
 Only koth and 5cp_scrim config files have been tested. For all other uses please use the spire.tf repository. 
 
+BROKEN AFTER LAST PUSH
+
 ## Installation
 
 [Download Plugin](https://github.com/nutcity/autoexec/blob/master/plugin/autoexec.smx)
